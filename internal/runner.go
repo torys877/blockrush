@@ -58,7 +58,7 @@ func (r *Runner) Start() error {
 
 	fmt.Println("Tests Are Prepared")
 	handleErrors(&r.errors, r.Run())
-	fmt.Println("Txs Were Sent.")
+	fmt.Println("Txs Were Sent")
 
 	fmt.Println("Begin Collect Metrics.")
 	handleErrors(&r.errors, r.CollectData())

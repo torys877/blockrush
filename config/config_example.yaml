@@ -2,8 +2,8 @@
 app:
   # Node connection settings
   node:
-    rpc_url: "http://127.0.0.1:8525" # URL for connecting to the Ethereum node
-    chain_id: 300800 # Network ID (1331 for a local Ganache network)
+    rpc_url: "http://127.0.0.1:7545" # URL for connecting to the Ethereum node
+    chain_id: 1337 # Network ID (1337 for a local Ganache network)
 
 # List of tests
 tests:
@@ -31,7 +31,7 @@ tests:
       duration: 10 # Test duration in seconds
       tps: 20 # Number of calls per second (total for all threads)
       contract:
-        address: "0xdFe65a62854C4670717b3aC9dE3d9EF16A10530f" # Contract address
+        address: "<YOUR_DEPLOYED_CONTRACT_ADDRESS>" # Contract address
         function:
           name: "balanceOf" # Function name
           abi: '[{
@@ -63,7 +63,7 @@ tests:
       duration: 10 # Test duration in seconds
       tps: 20 # Number of calls per second (total for all threads)
       contract:
-        address: "0xdFe65a62854C4670717b3aC9dE3d9EF16A10530f" # Contract address
+        address: "<YOUR_DEPLOYED_CONTRACT_ADDRESS>" # Contract address
         function:
           name: "transfer" # Function name
           abi: '[{
