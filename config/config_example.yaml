@@ -1,0 +1,106 @@
+# Application configuration for blockchain throughput testing
+app:
+  # Node connection settings
+  node:
+    rpc_url: "http://127.0.0.1:8525" # URL for connecting to the Ethereum node
+    chain_id: 300800 # Network ID (1331 for a local Ganache network)
+
+# List of tests
+tests:
+  simple_transaction_test: # Unique test name
+    type: "send" # Test type: transaction or contract call
+    config:
+      senders: 6 # Number of threads executing the test
+      duration: 10 # Test duration in seconds
+      tps: 400 # Transactions per second (total for all threads), each sender requests = tps/senders per second
+      data_size: 8196 # Size in bytes, will be added as data in the transaction as a byte string
+      value: 1 # Value in WETH
+
+  simple_transaction_test_nodata: # Unique test name
+    type: "send" # Test type: transaction or contract call
+    config:
+      senders: 6 # Number of threads executing the test
+      duration: 10 # Test duration in seconds
+      tps: 20 # Transactions per second (total for all threads), each sender requests = tps/senders per second
+      # No contract means - send Ether to an account
+
+  contract_call_test: # Unique test name
+    type: "call" # Test type: contract call
+    config:
+      senders: 6 # Number of threads executing the test
+      duration: 10 # Test duration in seconds
+      tps: 20 # Number of calls per second (total for all threads)
+      contract:
+        address: "0xdFe65a62854C4670717b3aC9dE3d9EF16A10530f" # Contract address
+        function:
+          name: "balanceOf" # Function name
+          abi: '[{
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "account",
+                  "type": "address"
+                }
+              ],
+              "name": "balanceOf",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            }]'
+          params:
+            - "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+
+  contract_send_test: # Unique test name
+    type: "send" # Test type: contract call
+    config:
+      senders: 6 # Number of threads executing the test
+      duration: 10 # Test duration in seconds
+      tps: 20 # Number of calls per second (total for all threads)
+      contract:
+        address: "0xdFe65a62854C4670717b3aC9dE3d9EF16A10530f" # Contract address
+        function:
+          name: "transfer" # Function name
+          abi: '[{
+            "inputs": [
+              {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "value",
+                "type": "uint256"
+              }
+            ],
+            "name": "transfer",
+            "outputs": [
+              {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+              }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+          }]'
+          params:
+            - "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+            - "100"
+
+# Configuration of senders
+senders:
+  # Option 1: Using private keys
+  private_keys:
+    - "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+    - "59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d"
+    - "5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a"
+    - "7c852118294e51e653712a81e05800f419141751be58f605c371e15141b007a6"
+    - "47e179ec197488593b187f80a00eb0da91f1b9d0b13f8733639f19c30a34926a"
+    - "8b3a350cf5c34c9194ca85829a2df0ec3153be0318b5e2d3348e872092edffba"
