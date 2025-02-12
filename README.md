@@ -177,6 +177,7 @@ Block distance (average, distance between block when tx wax sent and block when 
 - [ ] Add detailed transaction and block logs
 - [ ] Enhance private key management
 - [ ] Add preliminary function calls for contracts before running tests (e.g., provide necessary access permissions for senders, if required)
+- [ ] Add support for non-EVM blockchains
 
 
 ## License
